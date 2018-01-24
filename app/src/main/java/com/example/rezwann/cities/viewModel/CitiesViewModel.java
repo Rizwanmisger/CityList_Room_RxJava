@@ -1,13 +1,11 @@
 package com.example.rezwann.cities.viewModel;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.rezwann.cities.app.App;
 import com.example.rezwann.cities.model.Cities;
-import com.example.rezwann.cities.model.CitiesDao;
-import com.example.rezwann.cities.model.LocalRepository;
+import com.example.rezwann.cities.db.LocalRepository;
 import com.example.rezwann.cities.model.Result;
 import com.example.rezwann.cities.network.CitiesAPI;
 
@@ -22,7 +20,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subscribers.DisposableSubscriber;
 
 import static com.example.rezwann.cities.app.Constants.CITY_URL;
 
@@ -36,8 +33,6 @@ public class CitiesViewModel extends java.util.Observable {
     CitiesAPI apiSource;
     @Inject
     LocalRepository localRepository;
-    @Inject
-    CitiesDao dao;
 
     List<Cities> citiesList;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -49,7 +44,7 @@ public class CitiesViewModel extends java.util.Observable {
     public CitiesViewModel(Context context) {
         ((App) context).getAppComponent().inject(this);
         citiesList = new ArrayList<>();
-        //   getCitiesFromLocalRepo();
+    //    getCitiesFromLocalRepo();
         getCitiesFromService();
     }
 
